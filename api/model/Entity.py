@@ -4,13 +4,17 @@ from bson import ObjectId
 
 
 class User(Document):
-    id: ObjectId
+    id: ObjectId = Field(default_factory=ObjectId, alias="id")
     name: str = Field(...)
-    age: str = Field(...)
 
-    class Settings:
-        name = "users"
-        allow_population_by_field_name = True
-        json_encoders = {
-            ObjectId: str
-        }
+    # class Settings:
+    #     name = "User"
+    #     allow_population_by_field_name = True
+    #     # json_encoders = {
+    #     #     ObjectId: str
+    #     # }
+
+    class Config:
+        name = "User"
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
